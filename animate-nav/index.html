@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>导航特效：点击时底部线条动画移动</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="public/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/sytle.css">
+</head>
+<body>
+	<div id="animate-nav">
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">Clients</a></li>
+			<li><a href="#">Clients</a></li>
+			<li><a href="#">Shop</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul>
+		<div><span></span></div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	(function () {
+		//点击动画跟随
+	var animateNav = document.querySelector('#animate-nav');
+	var lis = animateNav.querySelectorAll("li");
+	var myWidth = lis[0].clientWidth;
+	var spanMark = animateNav.querySelector('span');
+	var before = 0;
+	var after = 0;
+	var i = 0;
+	for (var x = 0; x < lis.length; x++) {
+		(function (i) {
+			lis[i].onclick=function () {
+				after = i*myWidth;
+				//执行动画
+				animate();
+			}
+		})(x);
+	}
+	lis=null;
+	function animate () {
+		var timer = setInterval(function(){
+			//判断是向右移动
+			if (i == after) {
+				clearInterval(timer);
+				before = after = i;
+			}
+			if(after > before ){
+				spanMark.style.left=(i++)+'px';
+			}else{
+				spanMark.style.left=(i--)+'px';
+			}
+		},2);
+	}
+	})()
+</script>
